@@ -1,0 +1,36 @@
+<html>
+<script>
+
+
+function memoize (fn,context){
+  const res={}
+  console.log("res=",res)
+  return function (...args){
+    curargs=JSON.stringify(args)
+    if (!res[curargs]){
+      console.log("Inside")
+      res[curargs]=fn.call(context||this,...args)
+    }
+      return res[curargs]
+  }
+}
+
+const multiply = (num1,num2)=>{
+    for (let i=0;i<1000000;i++){
+
+    }
+
+    return (num1*num2)
+}
+
+const  memmultiply=memoize(multiply)
+
+console.time("Start:");
+console.log(multiply(1,2))
+console.timeEnd("Start:");
+
+console.time("Start:");
+console.log(memmultiply(1,2))
+console.timeEnd("Start:");
+</script>
+</html>
